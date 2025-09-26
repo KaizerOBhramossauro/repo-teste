@@ -175,15 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Atualizar células
         for (let i = 0; i < 5; i++) {
             currentRowCells[i].classList.add(result[i]);
         }
 
-        // Atualizar letras usadas
         updateUsedLetters();
 
-        // Verificar vitória
         if (guess === targetWord) {
             message.textContent = "Acertou!";
             gameOver = true;
@@ -193,17 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Avançar para a próxima linha
         currentRow++;
         currentCell = 0;
 
-        // Definir primeira célula da nova linha como ativa
         if (currentRow < 6) {
             activeCell = document.querySelector(`.row[data-row="${currentRow}"] .cell`);
             activeCell.classList.add('active');
         }
 
-        // Verificar fim de jogo
         if (currentRow === 6) {
             message.textContent = `Tente novamente! A palavra era ${targetWord}`;
             gameOver = true;
@@ -213,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Atualizar display de letras usadas
     function updateUsedLetters() {
         if (usedLetters.size > 0) {
             usedLettersContainer.textContent = 'Letras não usadas: ' +
@@ -221,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Animação de erro (tremer linha)
     function shakeRow(row) {
         const rowElement = document.querySelector(`.row[data-row="${row}"]`);
         rowElement.style.animation = 'shake 0.5s';
@@ -231,9 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
 
-    // Event listeners
     document.addEventListener('keydown', (e) => {
-        e.preventDefault(); // Prevenir comportamento padrão
+        e.preventDefault(); 
         handleKeyPress(e.key);
     });
 
@@ -252,6 +243,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Iniciar o jogo
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+       document.body.classList.toggle("dark");
+       themeToggle.textContent = document.body.classList.contains("dark") ? "☀️ Light" : "🌙 Dark";
+    });
+
+    let wins = 0;
+    let losses = 0;
+
+    const winPercentageEl = document.getElementById("win-percentage");
+    const lossCountEl = document.getElementById("loss-count");
+
+    function updateStats() {
+       const totalGames = wins + losses;
+       const percentage = totalGames > 0 ? Math.round((wins / totalGames) * 100) : 0;
+       winPercentageEl.textContent = `Vitórias: ${percentage}%`;
+       lossCountEl.textContent = `Derrotas: ${losses}`;
+    }
+
+    function playerWins() {
+       wins++;
+       updateStats();
+       alert("Você venceu! 🎉");
+    }
+
+    function playerLoses() {
+       losses++;
+       updateStats();
+       alert("Você perdeu! 😢");
+    }
+
     initGame();
 });

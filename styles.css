@@ -224,3 +224,37 @@ h1 {
         font-size: 1.5rem;
     }
 }
+/* Botão de tema */
+.theme-toggle {
+    margin: 10px 0;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #ddd;
+    transition: 0.3s;
+}
+
+/* Estatísticas */
+.stats {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Modo Dark */
+body.dark {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+body.dark .container {
+    background: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+body.dark .theme-toggle {
+    background: #333;
+    color: #fff;
+}
